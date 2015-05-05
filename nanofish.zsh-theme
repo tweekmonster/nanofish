@@ -13,7 +13,7 @@ _virtualenv_prompt() {
   fi
 }
 
-local uc='green'; [ $UID -eq 0 ] && uc='red'
+uc='green'; [ $UID -eq 0 ] && uc='red'
 
 VIRTUAL_ENV_DISABLE_PROMPT=1
 PROMPT='$(_virtualenv_prompt)%F{$uc}%n%F{yellow}@%F{184}%m %F{green}$(_fishy_collapsed_wd)%F{blue} %(!.#.$)%f '
