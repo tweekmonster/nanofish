@@ -6,7 +6,6 @@ friend.
 
 ```sh
 antigen use oh-my-zsh
-antigen bundle tweekmonster/nanofish
 antigen theme tweekmonster/nanofish nanofish
 ```
 
