@@ -13,11 +13,50 @@ _virtualenv_prompt() {
   fi
 }
 
-uc='green'; [ $UID -eq 0 ] && uc='red'
+_nanofish_role_color='green'; [ $UID -eq 0 ] && uc='red'
+default_prompt="%F{blue}%(!.#.$)%f%f"
+vi_prompt="%F{001}{257}"
+
+_nanofish_end() {
+  # echo "${${KEYMAP/vicmd/$vi_prompt}/(main|viins)/$default_prompt} "
+  if [[ $KEYMAP == "vicmd" ]]; then
+    echo -n "%{{cyan}"
+  fi
+  echo $default_prompt
+}
+
+_nanofish_prompt() {
+  if [[ $UID == 0 ]]; then
+    echo -n "%{${fg[red]}%}"
+  else
+    echo -n "%{${fg[green]}%}"
+  fi
+
+  echo -n "%n%{${reset_color}%}"
+  echo -n "%{${fg[yellow]}%}@%{${reset_color}%}"
+  echo -n "%F{184}%m%{${reset_color}%} "
+  echo -n "%F{106}$(_fishy_collapsed_wd)%{${reset_color}%} "
+
+  if [[ $KEYMAP == "vicmd" ]]; then
+    echo -n "%{${fg[red]}%}"
+  else
+    echo -n "%{${fg[blue]}%}"
+  fi
+
+  echo -n '%(!.#.$) '
+  echo -n "%{${reset_color}%}"
+}
+
+_nanofish_rprompt() {
+  echo -n "$(git_prompt_info) "
+  echo -n "%{${fg[green]}%}"
+  echo -n '%D{%H:%M:%S}'
+  echo -n "%{${reset_color}%}"
+}
 
 VIRTUAL_ENV_DISABLE_PROMPT=1
-PROMPT='$(_virtualenv_prompt)%F{$uc}%n%F{yellow}@%F{184}%m %F{green}$(_fishy_collapsed_wd)%F{blue} %(!.#.$)%f '
-RPROMPT='$(git_prompt_info) %F{green}%D{%L:%M} %F{yellow}%D{%p}%f'
+PS1='$(_nanofish_prompt)'
+RPS1='$(_nanofish_rprompt)'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%F{blue}[%F{yellow}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%F{blue}]%f"
