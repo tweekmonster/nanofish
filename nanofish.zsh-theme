@@ -7,12 +7,6 @@ _fishy_collapsed_wd() {
 ")
 }
 
-_virtualenv_prompt() {
-  if [[ -n $VIRTUAL_ENV ]]; then
-    echo "%F{blue}[%F{001}${${VIRTUAL_ENV}:t}%F{blue}]%f "
-  fi
-}
-
 _nanofish_role_color='green'; [ $UID -eq 0 ] && uc='red'
 default_prompt="%F{blue}%(!.#.$)%f%f"
 vi_prompt="%F{001}{257}"
@@ -26,6 +20,12 @@ _nanofish_end() {
 }
 
 _nanofish_prompt() {
+  if [[ -n $VIRTUAL_ENV ]]; then
+    echo -n "%{${fg[blue]}%}[%{${reset_color}%}"
+    echo -n "%F{001}${${VIRTUAL_ENV}:t}%{${reset_color}%}"
+    echo -n "%{${fg[blue]}%}]%{${reset_color}%} "
+  fi
+
   if [[ $UID == 0 ]]; then
     echo -n "%{${fg[red]}%}"
   else
