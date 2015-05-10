@@ -1,6 +1,6 @@
 # nanofish
 
-An oh-my-zsh theme that uses adds a fish-style directory prompt to the
+An oh-my-zsh theme that adds a fish-style directory prompt to the
 nanotech theme. Also displays virutalenv IN COLOR. Welcome to the future my
 friend.
 
