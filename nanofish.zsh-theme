@@ -7,17 +7,8 @@ _fishy_collapsed_wd() {
 ")
 }
 
-_nanofish_role_color='green'; [ $UID -eq 0 ] && uc='red'
 default_prompt="%F{blue}%(!.#.$)%f%f"
 vi_prompt="%F{001}{257}"
-
-_nanofish_end() {
-  # echo "${${KEYMAP/vicmd/$vi_prompt}/(main|viins)/$default_prompt} "
-  if [[ $KEYMAP == "vicmd" ]]; then
-    echo -n "%{{cyan}"
-  fi
-  echo $default_prompt
-}
 
 _nanofish_prompt() {
   if [[ -n $VIRTUAL_ENV ]]; then
@@ -58,7 +49,7 @@ VIRTUAL_ENV_DISABLE_PROMPT=1
 PS1='$(_nanofish_prompt)'
 RPS1='$(_nanofish_rprompt)'
 
-ZSH_THEME_GIT_PROMPT_PREFIX="%F{blue}[%F{yellow}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%F{blue}]%f"
-ZSH_THEME_GIT_PROMPT_DIRTY=" %F{red}*%f"
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[blue]%}[%{$fg[yellow]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[blue]%}]"
+ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}*"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
